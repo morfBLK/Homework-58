@@ -1,9 +1,10 @@
 import React from 'react';
 import Backdrop from '../Backdrop/Backdrop';
+import NewButton from '../NewButton/NewButton';
 
 interface Props {
   show: boolean;
-  onClose: React.MouseEventHandler;
+  onClose: () => void;
   onDismiss?: () => void;
   alertText: string;
   typeAlert: string;
@@ -19,16 +20,17 @@ const Alert: React.FC<Props> = ({
 
   const getBtnClose = () => {
     if (onDismiss) {
-      return <button className="btn-close align-self-end mb-5" onClick={onClose}></button>
+      return <NewButton classNameBtn={"btn-close align-self-end mb-5"}
+                        onClickBtn={onClose}/>;
     }
-  }
+  };
   const classAlert = 'alert alert-' + typeAlert + ' text-center w-50';
 
   const close = () => {
     if (onDismiss === undefined) {
-      return onClose
+      return onClose;
     }
-  }
+  };
 
   return (
 

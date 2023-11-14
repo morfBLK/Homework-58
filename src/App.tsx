@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from './components/Modal/Modal';
 import Alert from "./components/Alert/Alert";
+import NewButton from './components/NewButton/NewButton';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -11,34 +12,36 @@ function App() {
   const cancelAlertNoX = () => setShowAlertNoX(false);
   const newAlert = () => setShowAlert(true);
 
-
   const BtnConfiguration = [
     {classBtn: 'btn btn-primary', title: 'Continue', onClickBtn: newAlert},
     {classBtn: 'btn btn-danger', title: 'Close', onClickBtn: cancel}
-  ];
+  ]
 
   return (
     <div className="d-flex justify-content-around mt-5">
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => setShowModal(true)}
-      >Modal
-      </button>
 
-      <button
-        type="button"
-        className="btn btn-danger"
-        onClick={() => setShowAlert(true)}
-      >alert
-      </button>
+      <NewButton classNameBtn={"btn btn-primary"}
+                 onClickBtn={() => setShowModal(true)}
+                 nameBtn={'Modal'}/>
 
-      <button
-        type="button"
-        className="btn btn-warning"
-        onClick={() => setShowAlertNoX(true)}
-      >alert No X
-      </button>
+      <NewButton classNameBtn={"btn btn-danger"}
+                 onClickBtn={() => setShowAlert(true)}
+                 nameBtn={'Alert'}/>
+
+      <NewButton classNameBtn={"btn btn-warning"}
+                 onClickBtn={() => setShowAlertNoX(true)}
+                 nameBtn={'Alert No X'}/>
+
+      <Modal
+        show={showModal}
+        title={'Some kinda modal title'}
+        onClose={cancel}
+        btnConfiguration={BtnConfiguration}
+      >
+        <div className="modal-body">
+          This is modal content
+        </div>
+      </Modal>
 
       <Alert show={showAlert}
              onClose={cancelAlert}
@@ -51,17 +54,6 @@ function App() {
              onClose={cancelAlertNoX}
              alertText={'This is a success type alert'}
              typeAlert={'success'}/>
-
-      <Modal
-        show={showModal}
-        title={'Some kinda modal title'}
-        onClose={cancel}
-        btnConfiguration={BtnConfiguration}
-      >
-        <div className="modal-body">
-          This is modal content
-        </div>
-      </Modal>
     </div>
   );
 
